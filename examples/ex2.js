@@ -1,4 +1,4 @@
-/*global fe */
+/*global fe logger*/
 var L2x2 = fe.mesh.L2x2;
 var DeforSS = fe.feblock.DeforSS;
 var LinElIso = fe.property.LinElIso;
@@ -10,6 +10,7 @@ var genISORm = fe.feutils.genISORm;
 var SparseSystemMatrix = fe.system.matrix.SparseSystemMatrix;
 var SparseSystemVector = fe.system.vector.SparseSystemVector;
 var mldivide = fe.system.mldivide;
+var log = logger.log;
 
 // parameters:
 var E = 1e7;
@@ -109,5 +110,5 @@ var values = u.values();
 // ];
 // console.log("expected = ", expected);
 
-fe.io.log('nodal displacements:\n');
-fe.io.log(JSON.stringify(values, null, 2));
+log('nodal displacements:\n');
+log(JSON.stringify(values, null, 2));

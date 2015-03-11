@@ -1,4 +1,4 @@
-/* global: fe */
+/*global fe logger*/
 var FeNodeSet = fe.fens.FeNodeSet;
 var L2 = fe.gcellset.L2;
 var LinElIso = fe.property.LinElIso;
@@ -12,7 +12,7 @@ var EBC = fe.ebc.EBC;
 var DeforSS = fe.feblock.DeforSS;
 var NodalLoad = fe.nodalload.NodalLoad;
 var genISORm = fe.feutils.genISORm;
-var log = fe.io.log;
+var log = logger.log;
 
 // parameters:
 var E = 1e7;

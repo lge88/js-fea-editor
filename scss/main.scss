@@ -1,4 +1,5 @@
 $purple: #674Aa8;
+$tabLabelHoverColor: #5639a8;
 $codeFontFamily: Helvetica Neue, Helvetica, Arial, sans-serif;
 $outputFontFamily: Monaco, Menlo, Ubuntu Mono, Consolas, source-code-pro, monospace;
 
@@ -10,6 +11,7 @@ html, body {
 }
 
 body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -48,17 +50,82 @@ body {
 }
 
 .js-fea-editor,
-.logger-container {
+.output-container {
   width: 50%;
 }
 
 .js-fea-editor {
   border-top: 1px solid $purple;
-  border-right: 1px solid $purple;
 }
 
-.logger-container {
+.logger {
   font-family: $outputFontFamily;
-  border-top: 1px solid $purple;
+  font-size: 14px;
   overflow: scroll;
+}
+
+.viewer {
+  flex: 1;
+}
+
+.tab-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.tab-label {
+  cursor: pointer;
+  outline: none;
+  background: none;
+  font-size: 24px;
+  font-weight: 100;
+  font-family: $codeFontFamily;
+  border-color: $purple;
+  border-top-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-bottom-style: none;
+  border-width: 1px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  width: 120px;
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: $purple
+}
+
+.tab-label:hover {
+  background: $tabLabelHoverColor;
+  color: white;
+}
+
+.tab-label.selected {
+  background: $purple;
+  color: white;
+}
+.tab-label.selected:hover {
+  background: $tabLabelHoverColor;
+  color: white;
+}
+
+.tab-body {
+  padding-left: 5px;
+  padding-right: 5px;
+  flex: 1;
+  display: flex;
+}
+
+.tab-body .unselected {
+  display: none;
 }

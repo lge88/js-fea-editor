@@ -14,8 +14,18 @@
     </div>
     <div class="main">
       <div id="js-fea-editor" class="js-fea-editor"></div>
-      <div id="logger-container" class="logger-container">
-        <pre id="logger"><pre>
+
+      <div class="output-container tab-view">
+        <div class="tab-bar" data-container-id="tab-body-container">
+          <button class="tab-label selected" onclick="app.updateTabUI(event);">Logger</button>
+          <button class="tab-label unselected" onclick="app.updateTabUI(event);">Viewer</button>
+        </div>
+
+        <div class="tab-body" id="tab-body-container">
+          <pre id="logger" class="logger selected"></pre>
+          <canvas id="viewer" class="viewer unselected"></canvas>
+        </div>
+
       </div>
     </div>
 

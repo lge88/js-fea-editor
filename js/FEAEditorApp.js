@@ -1,13 +1,16 @@
 (function() {
-
-  var getUrl = window.getUrl;
   var fe = window.fe;
+  // from utils.js
+  var getUrl = window.getUrl,
+      hasClass = window.hasClass,
+      addClass = window.addClass,
+      removeClass = window.removeClass;
 
   function FEAEditorLogger(el, containerEl) {
 
     function log(msg) {
       el.textContent += msg + '\n';
-      containerEl.scrollTop = containerEl.scrollHeight;
+      el.scrollTop = el.scrollHeight;
     };
 
     function clear() {
@@ -78,6 +81,32 @@
 
   FEAEditorApp.prototype.clearLog = function() {
     this.logger.clear();
+  };
+
+  FEAEditorApp.prototype.updateTabUI = function(ev) {
+    var el = ev.target;
+    var tabLabels = el.parentNode.children;
+    var idx = Array.prototype.indexOf.call(tabLabels, el);
+    var containerId = el.parentNode.getAttribute('data-container-id');
+    var container = document.getElementById(containerId);
+    var tabBodies = container.children;
+
+    var i, len = tabBodies.length, bodyNode, labelNode;
+    for (i = 0; i < len; ++i) {
+      bodyNode = tabBodies[i];
+      labelNode = tabLabels[i];
+      removeClass(labelNode, 'selected');
+      removeClass(labelNode, 'unselected');
+      removeClass(bodyNode, 'selected');
+      removeClass(bodyNode, 'unselected');
+      if (i === idx) {
+        addClass(labelNode, 'selected');
+        addClass(bodyNode, 'selected');
+      } else {
+        addClass(labelNode, 'unselected');
+        addClass(bodyNode, 'unselected');
+      }
+    }
   };
 
 })();

@@ -1,4 +1,5 @@
 @import "vars.scss";
+@import "btn.scss";
 @import "tabview.scss";
 
 html, body {
@@ -12,26 +13,6 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
-}
-
-.toolbar button {
-  font-family: $codeFontFamily;
-  font-weight: 100;
-  font-size: 24px;
-  color: $purple;
-  background-color: #fff;
-  padding: 5px 10px;
-  width: 200px;
-  cursor: pointer;
-  outline: none;
-  border: 1px solid $purple;
-  border-radius: 2px;
-  margin-right: 10px;
-}
-
-.toolbar button:hover {
-  background-color: $purple;
-  color: #fff;
 }
 
 .toolbar {

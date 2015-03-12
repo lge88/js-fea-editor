@@ -1,3 +1,59 @@
+.btn, .tabview-label {
+  cursor: pointer;
+  outline: none;
+  font-size: 24px;
+  font-weight: 100;
+  background: none;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  border: 1px solid #674Aa8;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px 10px;
+  width: 120px;
+  text-align: center;
+  border-radius: 2px;
+  color: #674Aa8; }
+
+.btn:hover, .tabview-label:hover {
+  background: #5639a8;
+  color: white; }
+
+.btn.selected, .selected.tabview-label {
+  background: #674Aa8;
+  color: white; }
+
+.btn.selected:hover, .selected.tabview-label:hover {
+  background: #5639a8;
+  color: white; }
+
+.btn, .tabview-label {
+  cursor: pointer;
+  outline: none;
+  font-size: 24px;
+  font-weight: 100;
+  background: none;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  border: 1px solid #674Aa8;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px 10px;
+  width: 120px;
+  text-align: center;
+  border-radius: 2px;
+  color: #674Aa8; }
+
+.btn:hover, .tabview-label:hover {
+  background: #5639a8;
+  color: white; }
+
+.btn.selected, .selected.tabview-label {
+  background: #674Aa8;
+  color: white; }
+
+.btn.selected:hover, .selected.tabview-label:hover {
+  background: #5639a8;
+  color: white; }
+
 .tabview {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -19,40 +75,14 @@
   justify-content: flex-start; }
 
 .tabview-label {
-  cursor: pointer;
-  outline: none;
-  background: none;
-  font-size: 24px;
-  font-weight: 100;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  border-color: #674Aa8;
   border-top-style: solid;
   border-left-style: solid;
   border-right-style: solid;
   border-bottom-style: none;
-  border-width: 1px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 3px;
-  width: 120px;
-  text-align: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color: #674Aa8; }
-
-.tabview-label:hover {
-  background: #5639a8;
-  color: white; }
-
-.tabview-label.selected {
-  background: #674Aa8;
-  color: white; }
-
-.tabview-label.selected:hover {
-  background: #5639a8;
-  color: white; }
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px; }
 
 .tabview-body {
   padding-left: 5px;
@@ -81,24 +111,6 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column; }
-
-.toolbar button {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 24px;
-  color: #674Aa8;
-  background-color: #fff;
-  padding: 5px 10px;
-  width: 200px;
-  cursor: pointer;
-  outline: none;
-  border: 1px solid #674Aa8;
-  border-radius: 2px;
-  margin-right: 10px; }
-
-.toolbar button:hover {
-  background-color: #674Aa8;
-  color: #fff; }
 
 .toolbar {
   height: 40px;

@@ -1,4 +1,5 @@
 @import "vars.scss";
+@import "btn.scss";
 
 .tabview {
   display: flex;
@@ -13,42 +14,15 @@
 }
 
 .tabview-label {
-  cursor: pointer;
-  outline: none;
-  background: none;
-  font-size: 24px;
-  font-weight: 100;
-  font-family: $codeFontFamily;
-  border-color: $purple;
+  @extend .btn;
   border-top-style: solid;
   border-left-style: solid;
   border-right-style: solid;
   border-bottom-style: none;
-  border-width: 1px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 3px;
-  width: 120px;
-  text-align: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color: $purple
-}
-
-.tabview-label:hover {
-  background: $tabLabelHoverColor;
-  color: white;
-}
-
-.tabview-label.selected {
-  background: $purple;
-  color: white;
-}
-.tabview-label.selected:hover {
-  background: $tabLabelHoverColor;
-  color: white;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .tabview-body {

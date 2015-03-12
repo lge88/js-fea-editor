@@ -1,4 +1,4 @@
-/*global fe logger*/
+/*global fe logger viewer*/
 var FeNodeSet = fe.fens.FeNodeSet;
 var L2 = fe.gcellset.L2;
 var LinElIso = fe.property.LinElIso;
@@ -126,3 +126,5 @@ var values = u.values();
 
 log('nodal displacements:\n');
 log(JSON.stringify(values, null, 2));
+
+// viewer.drawCube(50, 20, 20, 20, 30, 0);

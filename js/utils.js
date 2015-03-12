@@ -1,16 +1,23 @@
-function hasClass(ele,cls) {
-  return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+function hasClass(ele, cls) {
+  return ele.classList.contains(cls);
+  // return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 }
 
 function addClass(ele,cls) {
-  if (!hasClass(ele,cls)) ele.className += " "+cls;
+  ele.classList.add(cls);
+  // if (!hasClass(ele,cls)) ele.className += " "+cls;
 }
 
 function removeClass(ele,cls) {
-  if (hasClass(ele,cls)) {
-    var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
-    ele.className=ele.className.replace(reg,' ');
-  }
+  ele.classList.remove(cls);
+  // if (hasClass(ele,cls)) {
+  //   var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+  //   ele.className=ele.className.replace(reg,' ');
+  // }
+}
+
+function toggleClass(ele,cls) {
+  ele.classList.toggle(cls);
 }
 
 function getUrl(url, callback) {

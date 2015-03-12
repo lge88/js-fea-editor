@@ -52,10 +52,10 @@ body {
   -ms-flex-direction: row;
   flex-direction: row; }
 
-.js-fea-editor, .output-container {
+.editor, .output-container {
   width: 50%; }
 
-.js-fea-editor {
+.editor {
   border-top: 1px solid #674Aa8; }
 
 .logger {

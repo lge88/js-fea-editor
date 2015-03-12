@@ -127,4 +127,4 @@ var values = u.values();
 log('nodal displacements:\n');
 log(JSON.stringify(values, null, 2));
 
-// viewer.drawCube(50, 20, 20, 20, 30, 0);
+viewer.drawFeb(feb, geom, { u: u });

@@ -9,6 +9,7 @@
     <div class="toolbar">
       <button class="btn" onclick="app.runScript();">Run</button>
       <button class="btn" onclick="app.clearLog();">Clear Log</button>
+      <button class="btn" onclick="app.clearViewer();">Clear Viewer</button>
       <button class="btn" onclick="app.loadExample(0);">Ex1</button>
       <button class="btn" onclick="app.loadExample(1);">Ex2</button>
     </div>
@@ -29,12 +30,13 @@
       </div>
     </div>
 
-    <script src="https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>
-    <script src="https://cdn.rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-language_tools.js"></script>
-    <script src="https://cdn.rawgit.com/lge88/js-fea/master/build/fe.min.js"></script>
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/EditorControls.js"></script>
+    <script src="https://rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>
+    <script src="https://rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ext-language_tools.js"></script>
+    <script src="https://rawgit.com/lge88/js-fea/master/build/fe.min.js"></script>
+    <script src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+    <script src="https://rawgit.com/mrdoob/three.js/master/examples/js/controls/EditorControls.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/FEAEditorViewer.js"></script>
     <script src="js/FEAEditorApp.js"></script>
     <script>
      var app = new FEAEditorApp();

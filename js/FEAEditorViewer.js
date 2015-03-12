@@ -88,7 +88,7 @@
     return mesh;
   };
 
-  FEAEditorViewer.prototype._createGeometry0d = function(gcells, x, colors) {
+  function createGeometry0d(gcells, x, colors) {
     var dim = gcells.dim();
     if (dim < 0) return null;
 
@@ -106,11 +106,11 @@
       geometry.colors = colors;
     }
 
-    this._markGeometryDirty(geometry);
+    markGeometryDirty(geometry);
     return geometry;
   };
 
-  FEAEditorViewer.prototype._createGeometry1d = function(gcells, x, colors) {
+  function createGeometry1d(gcells, x, colors) {
     var dim = gcells.dim();
     if (dim < 1) return null;
 
@@ -138,11 +138,11 @@
       geometry.colors = edgeColors;
     }
 
-    this._markGeometryDirty(geometry);
+    markGeometryDirty(geometry);
     return geometry;
   };
 
-  FEAEditorViewer.prototype._createGeometry2d = function(gcells, x, colors) {
+  function createGeometry2d(gcells, x, colors) {
     var dim = gcells.dim();
     if (dim < 2) return null;
 
@@ -184,11 +184,11 @@
       geometry.colors = colors;
     }
 
-    this._markGeometryDirty(geometry);
+    markGeometryDirty(geometry);
     return geometry;
   };
 
-  FEAEditorViewer.prototype._markGeometryDirty = function(geometry) {
+  function markGeometryDirty(geometry) {
     geometry.dynamic = true;
     geometry.verticesNeedUpdate = true;
     geometry.elementsNeedUpdate = true;
@@ -257,7 +257,8 @@
     }, {});
   }
 
-  FEAEditorViewer.prototype._getDefaultMaterial = function(dim, options) {
+  function getDefaultMaterial(dim, options) {
+    if (!options) options = {};
     var hasColors = !!(options.hasColors), material;
     if (dim <= 0) {
       if (hasColors) {
@@ -281,37 +282,196 @@
     return material;
   };
 
-  FEAEditorViewer.prototype.drawFeb = function(feb, geom, options) {
+  function FEViewModel(feb, geom, options) {
+    THREE.Object3D.call(this);
+    if (!options) options = {};
+    this._feb = feb;
+    this._geom = geom;
+    this._u = options.u || null;
+
+    this._state = {
+      showVertices: true,
+      showEdges: true,
+      showFaces: true,
+      showDeformedVertices: true,
+      showDeformedEdges: true,
+      showDeformedFaces: true
+    };
+    this.setState(options);
+  }
+  FEViewModel.prototype = Object.create(THREE.Object3D.prototype);
+  FEViewModel.prototype.constructor = FEViewModel;
+
+  function clone(state) {
+    return JSON.parse(JSON.stringify(state));
+  }
+
+  function assign(a, b) {
+    var argv = Array.prototype.slice.call(arguments), argc = argv.length;
+    if (argc <= 1) return a;
+    if (argc > 2) {
+      var dest = assign.apply(null, argv.slice(0, 2));
+      return assign.apply(null, [dest].concat(argv.slice(2)));
+    }
+    for (var key in b) {
+      if (b.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+    return a;
+  }
+
+  FEViewModel.prototype.setState = function(updates) {
+    if (typeof updates !== 'object') updates = {};
+    var nextState = assign({}, this._state, updates);
+    this._update(nextState);
+  };
+
+  FEViewModel.prototype._update = function(state) {
+    if (state.showVertices === true) this._drawVertices();
+    if (state.showEdges === true) this._drawEdges();
+    if (state.showFaces === true) this._drawFaces();
+
+    if (state.showDeformedVertices === true) this._drawDeformedVertices();
+    if (state.showDeformedEdges === true) this._drawDeformedEdges();
+    if (state.showDeformedFaces === true) this._drawDeformedFaces();
+
+    this._state = state;
+  };
+
+  FEViewModel.prototype._drawVertices = function() {
+    if (this._vertices) this.remove(this._vertices);
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 0) {
+      var geom = this._geom;
+      var material = getDefaultMaterial(0);
+      var geometry = createGeometry0d(gcells, geom);
+      var mesh = new THREE.PointCloud(geometry, material);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._vertices = mesh;
+    }
+  };
+
+  function fieldAdd(f1, f2) {
+    return f1.map(function(xyz, i) {
+      var delta = f2.get(i+1);
+      return xyz.map(function(x, j) {
+        return x + delta[j];
+      });
+    });
+  }
+
+  FEViewModel.prototype._drawDeformedVertices = function() {
+    if (this._deformedVertices) this.remove(this._deformedVertices);
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 0 && this._u) {
+      var u = this._u;
+      var geom = fieldAdd(this._geom, u);
+      var material = getDefaultMaterial(0);
+      var geometry = createGeometry0d(gcells, geom);
+      var mesh = new THREE.PointCloud(geometry, material);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._deformedVertices = mesh;
+    }
+  };
+
+  FEViewModel.prototype._drawEdges = function() {
+    if (this._edges) this.remove(this._edges);
+
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 1) {
+      var geom = this._geom;
+      var material = getDefaultMaterial(1);
+      var geometry = createGeometry1d(gcells, geom);
+      var mesh = new THREE.Line(geometry, material, THREE.LinePieces);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._edges = mesh;
+    }
+  };
+
+  FEViewModel.prototype._drawDeformedEdges = function() {
+    if (this._deformedEdges) this.remove(this._deformedEdges);
+
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 1 && this._u) {
+      var geom = fieldAdd(this._geom, this._u);
+      var material = getDefaultMaterial(1);
+      var geometry = createGeometry1d(gcells, geom);
+      var mesh = new THREE.Line(geometry, material, THREE.LinePieces);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._deformedEdges = mesh;
+    }
+  };
+
+  FEViewModel.prototype._drawFaces = function() {
+    if (this._faces) this.remove(this._faces);
+
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 2) {
+      var geom = this._geom;
+      var material = getDefaultMaterial(2);
+      var geometry = createGeometry2d(gcells, geom);
+      var mesh = new THREE.Mesh(geometry, material);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._faces = mesh;
+    }
+  };
+
+  FEViewModel.prototype._drawDeformedFaces = function() {
+    if (this._deformedFaces) this.remove(this._deformedFaces);
+
+    var gcells = this._feb.gcells();
+    if (gcells.dim() >= 2 && this._u) {
+      var geom = fieldAdd(this._geom, this._u);
+      var material = getDefaultMaterial(2);
+      var geometry = createGeometry2d(gcells, geom);
+      var mesh = new THREE.Mesh(geometry, material);
+      mesh.matrixAutoUpdate = true;
+      this.add(mesh);
+      this._deformedFaces = mesh;
+    }
+  };
+
+  FEAEditorViewer.prototype.draw = function(feb, geom, options) {
     if (!options) options = {};
 
-    var colors = options.colors;
-    var gcells = feb.gcells();
-    var dim = gcells.dim();
+    var model = new FEViewModel(feb, geom, options);
+    this.world.add(model);
+    return model;
 
-    var material = this._getDefaultMaterial(dim, { hasColors: colors });
+    // var colors = options.colors;
+    // var gcells = feb.gcells();
+    // var dim = gcells.dim();
 
-    var geometry, mesh;
+    // var material = this._getDefaultMaterial(dim, { hasColors: colors });
 
-    if (dim == 0) {
-      geometry = this._createGeometry0d(gcells, geom, colors);
-      mesh = new THREE.PointCloud(geometry, material);
-    } else if (dim == 1) {
-      geometry = this._createGeometry1d(gcells, geom, colors);
-      mesh = new THREE.Line(geometry, material, THREE.LinePieces);
-    } else if (dim == 2) {
-      geometry = this._createGeometry2d(gcells, geom, colors);
-      mesh = new THREE.Mesh(geometry, material);
-    }
+    // var geometry, mesh;
 
-    if (options.u) {
-      // TODO: draw deformed
-    }
+    // if (dim == 0) {
+    //   geometry = this._createGeometry0d(gcells, geom, colors);
+    //   mesh = new THREE.PointCloud(geometry, material);
+    // } else if (dim == 1) {
+    //   geometry = this._createGeometry1d(gcells, geom, colors);
+    //   mesh = new THREE.Line(geometry, material, THREE.LinePieces);
+    // } else if (dim == 2) {
+    //   geometry = this._createGeometry2d(gcells, geom, colors);
+    //   mesh = new THREE.Mesh(geometry, material);
+    // }
 
-    mesh.matrixAutoUpdate = true;
+    // if (options.u) {
+    //   // TODO: draw deformed
+    // }
 
-    this.world.add(mesh);
+    // mesh.matrixAutoUpdate = true;
 
-    return mesh;
+    // this.world.add(mesh);
+
+    // return mesh;
   };
 
   window.FEAEditorViewer = FEAEditorViewer;

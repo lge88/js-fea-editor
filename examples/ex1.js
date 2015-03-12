@@ -127,4 +127,14 @@ var values = u.values();
 log('nodal displacements:\n');
 log(JSON.stringify(values, null, 2));
 
-viewer.drawFeb(feb, geom, { u: u });
+var scale = 100;
+u = u.map(function(xyz) {
+  return xyz.map(function(x) {
+    return 100 * x;
+  });
+});
+
+log('scaled nodal displacements:\n');
+log(JSON.stringify(u.values(), null, 2));
+
+var model = viewer.draw(feb, geom, { u: u });

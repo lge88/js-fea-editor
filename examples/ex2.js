@@ -113,4 +113,4 @@ var values = u.values();
 log('nodal displacements:\n');
 log(JSON.stringify(values, null, 2));
 
-viewer.drawFeb(feb, geom, { u: u });
+var model = viewer.draw(feb, geom, { u: u });

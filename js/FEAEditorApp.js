@@ -38,7 +38,7 @@
 
     var renderer = new THREE.WebGLRenderer({ canvas: el, antialias: true });
     renderer.setSize(w, h);
-    renderer.setClearColor(0xffffff, 1);
+    renderer.setClearColor(0xf3f2f3, 1);
 
     var controller = new THREE.EditorControls(camera, renderer.domElement);
 
@@ -47,6 +47,14 @@
     this.controller = controller;
     this.scene = scene;
     this.camera = camera;
+
+    window.addEventListener('resize', function() {
+      var w = el.parentNode.offsetWidth;
+      var h = el.parentNode.offsetHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
   }
 
   FEAEditorViewer.prototype._animate = function() {

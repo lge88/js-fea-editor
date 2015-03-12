@@ -443,35 +443,6 @@
     var model = new FEViewModel(feb, geom, options);
     this.world.add(model);
     return model;
-
-    // var colors = options.colors;
-    // var gcells = feb.gcells();
-    // var dim = gcells.dim();
-
-    // var material = this._getDefaultMaterial(dim, { hasColors: colors });
-
-    // var geometry, mesh;
-
-    // if (dim == 0) {
-    //   geometry = this._createGeometry0d(gcells, geom, colors);
-    //   mesh = new THREE.PointCloud(geometry, material);
-    // } else if (dim == 1) {
-    //   geometry = this._createGeometry1d(gcells, geom, colors);
-    //   mesh = new THREE.Line(geometry, material, THREE.LinePieces);
-    // } else if (dim == 2) {
-    //   geometry = this._createGeometry2d(gcells, geom, colors);
-    //   mesh = new THREE.Mesh(geometry, material);
-    // }
-
-    // if (options.u) {
-    //   // TODO: draw deformed
-    // }
-
-    // mesh.matrixAutoUpdate = true;
-
-    // this.world.add(mesh);
-
-    // return mesh;
   };
 
   window.FEAEditorViewer = FEAEditorViewer;

@@ -1,0 +1,63 @@
+@import "vars.scss";
+
+.tabview {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabview-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.tabview-label {
+  cursor: pointer;
+  outline: none;
+  background: none;
+  font-size: 24px;
+  font-weight: 100;
+  font-family: $codeFontFamily;
+  border-color: $purple;
+  border-top-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-bottom-style: none;
+  border-width: 1px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  width: 120px;
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: $purple
+}
+
+.tabview-label:hover {
+  background: $tabLabelHoverColor;
+  color: white;
+}
+
+.tabview-label.selected {
+  background: $purple;
+  color: white;
+}
+.tabview-label.selected:hover {
+  background: $tabLabelHoverColor;
+  color: white;
+}
+
+.tabview-body {
+  padding-left: 5px;
+  padding-right: 5px;
+  flex: 1;
+  display: flex;
+}
+
+.tabview-body .unselected {
+  display: none;
+}

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
     <title>JS-FEA Editor</title>
-    <link href="css/main.css" rel="stylesheet"/>
+    <link href="app.css" rel="stylesheet"/>
   </head>
   <body>
     <div class="toolbar">
@@ -13,21 +13,27 @@
       <button class="btn" onclick="app.loadExample(0);">Ex1</button>
       <button class="btn" onclick="app.loadExample(1);">Ex2</button>
     </div>
+
     <div class="main">
+
       <div id="editor" class="editor"></div>
 
-      <div class="output-container tab-view">
-        <div class="tab-bar" data-container-id="tab-body-container">
-          <button class="tab-label selected" onclick="app.updateTabUI(event);">Logger</button>
-          <button class="tab-label unselected" onclick="app.updateTabUI(event);">Viewer</button>
+      <div class="output-container tabview">
+        <div id="tabview-bar" class="tabview-bar">
+          <button class="tabview-label selected" onclick="app.updateTabUI(0);">Logger</button>
+          <button class="tabview-label unselected" onclick="app.updateTabUI(1);">Viewer</button>
+          <button class="tabview-label unselected" onclick="app.updateTabUI(2);">Plotter</button>
         </div>
 
-        <div class="tab-body" id="tab-body-container">
-          <pre id="logger" class="logger selected"></pre>
-          <canvas id="viewer" class="viewer unselected"></canvas>
+        <div id="tabview-body" class="tabview-body">
+          <pre id="logger" class="tabview-panel logger selected"></pre>
+          <canvas id="viewer" class="tabview-panel viewer unselected"></canvas>
+          <div id="plotter" class="tabview-panel plotter unselected">
+            <p>I am plotter!</p>
+          </div>
         </div>
-
       </div>
+
     </div>
 
     <script src="https://rawgit.com/ajaxorg/ace-builds/master/src-noconflict/ace.js"></script>
@@ -36,6 +42,7 @@
     <script src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
     <script src="https://rawgit.com/mrdoob/three.js/master/examples/js/controls/EditorControls.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/FEAEditorLogger.js"></script>
     <script src="js/FEAEditorViewer.js"></script>
     <script src="js/FEAEditorApp.js"></script>
     <script>

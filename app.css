@@ -1,0 +1,138 @@
+.tabview {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.tabview-bar {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start; }
+
+.tabview-label {
+  cursor: pointer;
+  outline: none;
+  background: none;
+  font-size: 24px;
+  font-weight: 100;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  border-color: #674Aa8;
+  border-top-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-bottom-style: none;
+  border-width: 1px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  width: 120px;
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #674Aa8; }
+
+.tabview-label:hover {
+  background: #5639a8;
+  color: white; }
+
+.tabview-label.selected {
+  background: #674Aa8;
+  color: white; }
+
+.tabview-label.selected:hover {
+  background: #5639a8;
+  color: white; }
+
+.tabview-body {
+  padding-left: 5px;
+  padding-right: 5px;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
+.tabview-body .unselected {
+  display: none; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.toolbar button {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 24px;
+  color: #674Aa8;
+  background-color: #fff;
+  padding: 5px 10px;
+  width: 200px;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #674Aa8;
+  border-radius: 2px;
+  margin-right: 10px; }
+
+.toolbar button:hover {
+  background-color: #674Aa8;
+  color: #fff; }
+
+.toolbar {
+  height: 40px;
+  padding: 10px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row; }
+
+.main {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row; }
+
+.editor, .output-container {
+  width: 50%; }
+
+.editor {
+  border-top: 1px solid #674Aa8; }
+
+.logger {
+  font-family: Monaco, Menlo, Ubuntu Mono, Consolas, source-code-pro, monospace;
+  font-size: 14px;
+  overflow: scroll; }
+
+.viewer {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }

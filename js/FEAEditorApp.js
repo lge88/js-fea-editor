@@ -8,25 +8,7 @@
       removeClass = window.removeClass;
 
   var FEAEditorViewer = window.FEAEditorViewer;
-
-  function FEAEditorLogger(el, containerEl) {
-
-    function log(msg) {
-      el.textContent += msg + '\n';
-      el.scrollTop = el.scrollHeight;
-    };
-
-    function clear() {
-      el.textContent = '';
-    };
-
-    this.log = log;
-    this.clear = clear;
-
-    return this;
-  }
-
-
+  var FEAEditorLogger = window.FEAEditorLogger;
 
   function FEAEditorApp() {
     this.examples = [
@@ -112,29 +94,27 @@
     this.viewer().clear();
   };
 
-  FEAEditorApp.prototype.updateTabUI = function(ev) {
-    var el = ev.target;
-    var tabLabels = el.parentNode.children;
-    var idx = Array.prototype.indexOf.call(tabLabels, el);
-    var containerId = el.parentNode.getAttribute('data-container-id');
-    var container = document.getElementById(containerId);
-    var tabBodies = container.children;
+  FEAEditorApp.prototype.updateTabUI = function(idx) {
+    var tabBar = document.getElementById('tabview-bar');
+    var tabBody = document.getElementById('tabview-body');
+    var tabLabels = tabBar.querySelectorAll('.tabview-label');
+    var tabPanels = tabBody.querySelectorAll('.tabview-panel');
 
-    var i, len = tabBodies.length, bodyNode, labelNode;
-    for (i = 0; i < len; ++i) {
-      bodyNode = tabBodies[i];
-      labelNode = tabLabels[i];
-      removeClass(labelNode, 'selected');
-      removeClass(labelNode, 'unselected');
-      removeClass(bodyNode, 'selected');
-      removeClass(bodyNode, 'unselected');
-      if (i === idx) {
-        addClass(labelNode, 'selected');
-        addClass(bodyNode, 'selected');
-      } else {
-        addClass(labelNode, 'unselected');
-        addClass(bodyNode, 'unselected');
-      }
+    if (tabLabels[idx] && tabPanels[idx]) {
+      [].forEach.call(tabLabels, function(node) {
+        removeClass(node, 'selected');
+        addClass(node, 'unselected');
+      });
+
+      [].forEach.call(tabPanels, function(node) {
+        removeClass(node, 'selected');
+        addClass(node, 'unselected');
+      });
+
+      removeClass(tabLabels[idx], 'unselected');
+      removeClass(tabPanels[idx], 'unselected');
+      addClass(tabLabels[idx], 'selected');
+      addClass(tabPanels[idx], 'selected');
     }
 
     // TODO: should use setState();

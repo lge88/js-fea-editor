@@ -64,6 +64,9 @@
 
 .tabview-bar {
   width: 100%;
+  -webkit-flex: 0 0;
+  -ms-flex: 0 0;
+  flex: 0 0;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

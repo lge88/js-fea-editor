@@ -22,8 +22,8 @@ var feb, ir, fens, gcells, mater, prop, ebcs, geom, u;
 
 var mesh = L2x2();
 // .refineQ4().refineQ4();
-fens = mesh.fens;
-gcells = mesh.gcells;
+fens = mesh.fens();
+gcells = mesh.gcells();
 
 prop = new LinElIso({ E: E, nu: nu });
 
@@ -52,7 +52,7 @@ ebcs = [
       bounds: [0, 0, 0, 1],
       inflate: 1e-4
     }),
-    dir: 1,
+    dir: 0,
     value: 0
   },
   {
@@ -60,7 +60,7 @@ ebcs = [
       bounds: [0, 1, 0, 0],
       inflate: 1e-4
     }),
-    dir: 2,
+    dir: 1,
     value: 0
   },
   {
@@ -68,7 +68,7 @@ ebcs = [
       bounds: [0, 1, 1, 1],
       inflate: 1e-4
     }),
-    dir: 2,
+    dir: 1,
     value: 0.25
   }
 ].map(function(o) { return new EBC(o); });

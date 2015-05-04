@@ -98,7 +98,7 @@
     geometry.vertices = gcells
       .vertices()
       .map(function(i) {
-        var v = x.get(i);
+        var v = x.at(i);
         return new THREE.Vector3(v[0] || 0, v[1] || 0, v[2] || 0);
       });
 
@@ -123,14 +123,14 @@
       .edges()
       .forEach(function(edge) {
         var i1 = edge[0], i2 = edge[1];
-        var v1 = x.get(i1);
-        var v2 = x.get(i2);
+        var v1 = x.at(i1);
+        var v2 = x.at(i2);
         vertices.push(
           new THREE.Vector3(v1[0] || 0, v1[1] || 0, v1[2] || 0),
           new THREE.Vector3(v2[0] || 0, v2[1] || 0, v2[2] || 0)
         );
         if (colors) {
-          edgeColors.push(colors[i1-1], colors[i2-1]);
+          edgeColors.push(colors[i1], colors[i2]);
         }
       });
 
@@ -160,7 +160,7 @@
 
     faceIndices
       .forEach(function(face) {
-        var i1 = face[0]-1, i2 = face[1]-1, i3 = face[2]-1;
+        var i1 = face[0], i2 = face[1], i3 = face[2];
         // no duplicate vertex
         if (i1 !== i2 && i2 !==i3 && i3 !== i1) {
           var f = new THREE.Face3(i1, i2, i3);
@@ -353,21 +353,12 @@
     }
   };
 
-  function fieldAdd(f1, f2) {
-    return f1.map(function(xyz, i) {
-      var delta = f2.get(i+1);
-      return xyz.map(function(x, j) {
-        return x + delta[j];
-      });
-    });
-  }
-
   FEViewModel.prototype._drawDeformedVertices = function() {
     if (this._deformedVertices) this.remove(this._deformedVertices);
     var gcells = this._feb.gcells();
     if (gcells.dim() >= 0 && this._u) {
       var u = this._u;
-      var geom = fieldAdd(this._geom, u);
+      var geom = this._geom.add(u);
       var material = getDefaultMaterial(0);
       var geometry = createGeometry0d(gcells, geom);
       var mesh = new THREE.PointCloud(geometry, material);
@@ -397,7 +388,7 @@
 
     var gcells = this._feb.gcells();
     if (gcells.dim() >= 1 && this._u) {
-      var geom = fieldAdd(this._geom, this._u);
+      var geom = this._geom.add(this._u);
       var material = getDefaultMaterial(1);
       var geometry = createGeometry1d(gcells, geom);
       var mesh = new THREE.Line(geometry, material, THREE.LinePieces);
@@ -427,7 +418,7 @@
 
     var gcells = this._feb.gcells();
     if (gcells.dim() >= 2 && this._u) {
-      var geom = fieldAdd(this._geom, this._u);
+      var geom = this._geom.add(this._u);
       var material = getDefaultMaterial(2);
       var geometry = createGeometry2d(gcells, geom);
       var mesh = new THREE.Mesh(geometry, material);

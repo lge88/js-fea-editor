@@ -1,0 +1,31 @@
+
+.btn {
+  cursor: pointer;
+  outline: none;
+  font-size: 24px;
+  font-weight: 100;
+  background: $btnBg;
+  font-family: $btnFontFamily;
+  border: 1px solid $btnBorderColor;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px 10px;
+  width: 120px;
+  text-align: center;
+  border-radius: 2px;
+  color: $btnTextColor;
+}
+
+.btn:hover {
+  background: $btnBgColorHover;
+  color: $btnTextColorHover;
+}
+
+.btn.selected {
+  background: $btnTextColor;
+  color: $btnTextColorHover;
+}
+.btn.selected:hover {
+  background: $btnBgColorHover;
+  color: $btnTextColorHover;
+}

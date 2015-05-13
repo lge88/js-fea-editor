@@ -137,7 +137,9 @@ body {
   flex-direction: row; }
 
 .editor, .output-container {
-  width: 50%; }
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
 
 .editor {
   border-top: 1px solid #674Aa8; }

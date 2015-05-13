@@ -20,8 +20,8 @@ var scale = 1;
 
 var feb, ir, fens, gcells, mater, prop, ebcs, geom, u;
 
-var mesh = L2x2();
-// .refineQ4().refineQ4();
+var mesh = L2x2().subdivideQ4().subdivideQ4().subdivideQ4();
+
 fens = mesh.fens();
 gcells = mesh.gcells();
 

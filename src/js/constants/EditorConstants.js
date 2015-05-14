@@ -1,4 +1,7 @@
-
 var EditorConstants = {
-  RUN_SCRIPT: {}
+  ActionType: {
+    CREATE_SCRIPT: 'CREATE_SCRIPT'
+  }
 };
+
+module.exports = exports = EditorConstants;

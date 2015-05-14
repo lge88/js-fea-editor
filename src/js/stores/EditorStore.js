@@ -1,10 +1,10 @@
 var Emitter = require('../utils/Emitter');
 var assign = require('object-assign');
-var AppDispather = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EditorConstants = require('../constants/EditorConstants');
 
+var ActionTypes = EditorConstants.ActionTypes;
 var _scripts = {};
-var _currentScriptId;
 
 function create(name, content) {
   var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
@@ -23,12 +23,19 @@ function destroy(id) {
 }
 
 var EditorStore = assign({}, Emitter, {
-  getCurrentScriptContent: function() {
-    var script = _scripts[_currentScriptId];
-    return script.content;
-  },
-  getCurrentScriptName: function() {
-    var script = _scripts[_currentScriptId];
-    return script.name;
+  get: function(id) {
+    return _scripts[id];
   }
+});
+
+EditorStore.dispatchToken = AppDispatcher.register(function(action) {
+
+  switch (action.type) {
+  case ActionTypes.CREATE_SCRIPT:
+    create(action.name, action.content);
+    break;
+  default:
+
+  }
+
 });

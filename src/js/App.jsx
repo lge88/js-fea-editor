@@ -1,4 +1,6 @@
 var React = require('react');
-var FEAEditor = require('./FEAEditor.jsx');
+var EditorApp = require('./components/EditorApp.jsx');
 
-React.render(<FEAEditor />, document.getElementById('app'));
+window.fe = require('js-fea');
+
+React.render(<EditorApp />, document.getElementById('app'));

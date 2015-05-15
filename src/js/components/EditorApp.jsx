@@ -1,6 +1,7 @@
 var React = require('react');
 var Toolbar = require('./Toolbar.jsx');
 var Editor = require('./Editor.jsx');
+var OutputView = require('./OutputView.jsx');
 
 var EditorApp = React.createClass({
   getInitialState: function() {
@@ -8,14 +9,15 @@ var EditorApp = React.createClass({
     return {
       code: "/*global fe logger viewer*/",
       visibility: {
-        toolbar: true,
-        editor: true
+        toolbar: false,
+        editor: false,
+        outputView: true
       }
     };
   },
 
   render: function() {
-    var toolbar, editor;
+    var toolbar, editor, outputView;
     var code = this.state.code;
 
     if (this.state.visibility.toolbar) {
@@ -26,15 +28,17 @@ var EditorApp = React.createClass({
       editor = <Editor text={code} />;
     }
 
+    if (this.state.visibility.outputView) {
+      outputView = <OutputView />;
+    }
+
     return (
       <div>
         {toolbar}
         {editor}
+        {outputView}
       </div>
     );
-  },
-  onChange: function() {
-
   }
 });
 

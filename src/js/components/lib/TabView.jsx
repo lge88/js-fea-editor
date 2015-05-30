@@ -1,12 +1,13 @@
 var React = require('react');
-var classNames = require('classnames');
+var cn = require('classnames');
+var assign = require('object-assign');
 
 var TabLabelBar = React.createClass({
   render: function() {
     var onClick = this.props.onClick;
     var selected = this.props.selectedIndex;
     var labels = this.props.labels.map(function(label, i) {
-      var classes = classNames({
+      var classes = cn({
         'tabview-label': true,
         'selected': (i === selected),
         'unselected': !(i === selected)
@@ -22,7 +23,7 @@ var TabLabelBar = React.createClass({
     });
 
     return (
-      <div id="tabview-bar" className="tabview-bar">
+      <div className="tabview-bar">
         {labels}
       </div>
     );
@@ -32,18 +33,27 @@ var TabLabelBar = React.createClass({
 var TabBody = React.createClass({
   render: function() {
     return (
-      <div id="tabview-body" className="tabview-body">
+      <div className="tabview-body">
         {this.props.children}
       </div>
     );
   }
 });
 
+/**
+ * TabView component
+ * <TabView selectedIndex={1}>
+ *   <Logger label="Logger" />
+ *   <Viewer label="Viewer" />
+ *   <Plotter label="Plotter" />
+ * </TabView>
+ */
 var TabView = React.createClass({
   getInitialState: function() {
-    return {
-      selectedIndex: 1
-    };
+    var selectedIndex = 0;
+    if (typeof this.props.selectedIndex !== 'undefined')
+      selectedIndex = this.props.selectedIndex;
+    return { selectedIndex: selectedIndex };
   },
   render: function() {
     var i = this.state.selectedIndex;
@@ -53,7 +63,7 @@ var TabView = React.createClass({
     });
 
     return (
-      <div className="output-container tabview">
+      <div id={this.props.id} className="tabview">
         <TabLabelBar onClick={this._handleTabClicked}
                      selectedIndex={i}
                      labels={labels}/>
@@ -62,9 +72,7 @@ var TabView = React.createClass({
     );
   },
   _handleTabClicked: function(i) {
-    this.setState({
-      selectedIndex: i
-    });
+    this.setState({ selectedIndex: i });
   }
 });
 

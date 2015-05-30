@@ -1,0 +1,12 @@
+{
+  "examples": [
+    {
+      "name": "ex1",
+      "url": "examples/ex1.js"
+    },
+    {
+      "name": "ex2",
+      "url": "examples/ex2.js"
+    }
+  ]
+}

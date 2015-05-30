@@ -15,19 +15,27 @@ var config = {
     HTML: './src/index.html',
     SASS: './src/scss/*.scss',
     SASS_ENTRY: './src/scss/app.scss',
+    EXAMPLES: ['./examples/*.js', './examples/*.json'],
     MINIFIED_OUT: 'build.min.js',
     OUT: 'build.js',
     DEST: 'dist',
     DEST_BUILD: 'dist/build',
     DEST_SRC: 'dist/src',
+    DEST_EXAMPLES: 'dist/examples',
     ENTRY_POINT: './src/js/App.jsx'
   }
 };
 
-gulp.task('copy', function() {
+gulp.task('html', function() {
   gulp.src(config.path.HTML)
     .pipe(gulp.dest(config.path.DEST));
   console.log('HTML copied.');
+});
+
+gulp.task('examples', function() {
+  gulp.src(config.path.EXAMPLES)
+    .pipe(gulp.dest(config.path.DEST_EXAMPLES));
+  console.log('EXAMPLES copied.');
 });
 
 gulp.task('sass', function () {
@@ -41,8 +49,9 @@ gulp.task('sass', function () {
   console.log('sass recompiled.');
 });
 
-gulp.task('watch', ['copy', 'sass'], function() {
-  gulp.watch(config.path.HTML, ['copy']);
+gulp.task('watch', ['examples', 'html', 'sass'], function() {
+  gulp.watch(config.path.EXAMPLES, ['examples']);
+  gulp.watch(config.path.HTML, ['html']);
   gulp.watch(config.path.SASS, ['sass']);
 
   var watcher = watchify(browserify({
@@ -75,7 +84,8 @@ gulp.task('serve', ['watch'], function() {
     files: [
       config.path.DEST + '/*.html',
       config.path.DEST + '/*.css',
-      config.path.DEST + '/src/*.js'
+      config.path.DEST + '/src/*.js',
+      config.path.DEST + '/examples/*.js'
     ]
   });
 });

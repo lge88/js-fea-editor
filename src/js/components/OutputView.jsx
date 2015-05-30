@@ -1,5 +1,5 @@
 var React = require('react');
-var TabView = require('./TabView.jsx');
+var TabView = require('./lib/TabView.jsx');
 var Logger = require('./Logger.jsx');
 var Viewer = require('./Viewer.jsx');
 var Plotter = require('./Plotter.jsx');
@@ -7,7 +7,7 @@ var Plotter = require('./Plotter.jsx');
 var OutputView = React.createClass({
   render: function() {
     return (
-      <TabView>
+      <TabView id={this.props.id} selectedIndex={1}>
         <Logger label="Logger" />
         <Viewer label="Viewer" />
         <Plotter label="Plotter" />

@@ -1,4 +1,5 @@
 var React = require('react');
+var EditorActions = require('../actions/EditorActions');
 
 var ToolbarButton = React.createClass({
   render: function() {
@@ -12,7 +13,7 @@ var ToolbarButton = React.createClass({
 var Toolbar = React.createClass({
   render: function() {
     return (
-      <div className="toolbar">
+      <div id={this.props.id} className="toolbar">
         <ToolbarButton text="Run"
                        onClick={this._runScript} />
         <ToolbarButton text="Save"
@@ -29,7 +30,7 @@ var Toolbar = React.createClass({
     alert('save');
   },
   _openScript: function() {
-    alert('open');
+    EditorActions.updateUIVisibilities({ fileManager: true });
   }
 });
 

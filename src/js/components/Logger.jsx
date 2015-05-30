@@ -1,9 +1,9 @@
 var React = require('react/addons');
+var cn = require('classnames');
 
 var Logger = React.createClass({
   render: function() {
-    var cx = React.addons.classSet;
-    var classes = cx({
+    var classes = cn({
       'tabview-panel': true,
       'logger': true
     });
